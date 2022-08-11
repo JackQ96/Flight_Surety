@@ -41,26 +41,45 @@ export default class Contract {
             .call({ from: self.owner}, callback);
     }
 
-    fetchFlightStatus(flight, callback) {
+    async fetchFlightStatus(flight, callback) {
         let self = this;
         let payload = {
             airline: self.airlines[0],
             flight: flight,
             timestamp: Math.floor(Date.now() / 1000)
         } 
-        self.flightSuretyApp.methods
+        await self.flightSuretyApp.methods
             .fetchFlightStatus(payload.airline, payload.flight, payload.timestamp)
             .send({ from: self.owner}, (error, result) => {
                 callback(error, payload);
             });
     }
 
-    registerAirline(airline, newairline, callback) {
+    async registerAirline(airline, newairline, callback) {
         let self = this;
-        self.flightSuretyApp.methods
+        await self.flightSuretyApp.methods
             .registerAirline(newairline)
             .send({from: airline, gas: 1000000}, (error, result) => {
                 callback(error, result);
             });
+    }
+
+    async buy(flight, price, callback) {
+        let self = this;
+        let payload = {
+            flight: flight,
+            price: this.web3.utils.toWei(price, "ether"),
+            passenger: this.passenger
+        }
+
+        await self.FlightSuretyData.methods
+            .buy(airline, flight, timestamp, passenger, amount)
+            .send({
+                from: payload.passenger,
+                value: payload.price,
+                gas: this.config.gas
+            }, (error, result) => {
+                callback(error, payload);
+            })
     }
 }

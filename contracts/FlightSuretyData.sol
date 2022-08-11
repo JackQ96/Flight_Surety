@@ -287,6 +287,16 @@ contract FlightSuretyData {
         airlines[airline].isFunded = true;
     }
 
+    function authoriseCaller
+                        (
+                            address contractAddress
+                        )
+                        external
+                        requireAuthorisedCaller
+    {
+        authorisedContracts[contractAddress] = true;
+    }
+
     function getFlightKey
                         (
                             address airline,
@@ -317,22 +327,6 @@ contract FlightSuretyData {
         flightsRegistered.push(flightID);
         numFlightsReg += 1;
     }
-
-    // function processFlightStatus
-    //                     (
-    //                         address airline,
-    //                         string flight,
-    //                         uint256 timestamp,
-    //                         uint8 statusCode
-    //                     )
-    //                     external
-    //                     requireIsOperational
-    //                     requireAuthorisedCaller
-    // {
-    //     bytes32 key = getFlightKey(airline, flight, timestamp);
-
-    //     flights[key].statusCode = statusCode;
-    // }
 
     /**
     * @dev Fallback function for funding smart contract.
