@@ -69,7 +69,7 @@ contract FlightSuretyData {
     {
         contractOwner = msg.sender;
         airlines[airline] = Airline(true, false, 0);
-        numAirlinesReg = numAirlinesReg.add(1);
+        numAirlinesReg +=1;
     }
 
     /********************************************************************************************/
