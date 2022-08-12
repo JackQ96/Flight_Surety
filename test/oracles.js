@@ -65,10 +65,5 @@ contract('Oracles', async (accounts) => {
 
       }
     }
-
-
   });
-
-
- 
 });

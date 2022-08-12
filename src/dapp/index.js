@@ -16,7 +16,6 @@ import './flightsurety.css';
             display('Operational Status', 'Check if contract is operational', [ { label: 'Operational Status', error: error, value: result} ]);
         });
     
-
         // User-submitted transaction
         DOM.elid('submit-oracle').addEventListener('click', () => {
             let flight = DOM.elid('flight-number').value;
@@ -32,6 +31,14 @@ import './flightsurety.css';
             // Write transaction
             contract.buy(flight, price, (error, result) => {
                 display('Insurance bought', '', [ { label: 'Insurance bought info', error: error, value: result} ]);
+            });
+        })
+
+        DOM.elid('withdraw-funds').addEventListener('click', () => {
+            let funds = DOM.elid('withdraw_amount').value;
+            let passenger = DOM.elid('insured-passengers').value;
+            contract.withdrawFunds(passenger, funds, (error, result) => {
+                display('Withdraw', '', [{ label: 'Withdraw Funds', error: error, value: result }]);
             });
         })
     
