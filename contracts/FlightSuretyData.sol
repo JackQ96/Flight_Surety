@@ -63,12 +63,12 @@ contract FlightSuretyData {
     */
     constructor
                                 (
-                                    address airline
+                                    address firstAirline
                                 ) 
                                 public 
     {
         contractOwner = msg.sender;
-        airlines[airline] = Airline(true, false, 0);
+        airlines[firstAirline] = Airline(true, false, 0);
         numAirlinesReg +=1;
     }
 
